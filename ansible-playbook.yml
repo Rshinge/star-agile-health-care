@@ -16,5 +16,14 @@
     become : yes
     become_user : root
 
-  - name: Deploy Docker Container
-    command: docker run -itd -p 8084:8082 shubhamkushwah123/medicure:1.0
+  - name: Build the Docker image
+    command: docker build -t healthCare_docker .
+
+  - name: Tag the Docker image
+    command: docker tag healthCare_docker rshinge/healthCare_docker:latest
+
+  - name: Push Docker image to registry
+    command: docker push rshinge/healthCare_docker:latest
+
+  # - name: Deploy Docker Container
+  #   command: docker run -itd -p 8084:8082 shubhamkushwah123/medicure:1.0
